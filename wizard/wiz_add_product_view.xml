@@ -11,7 +11,10 @@
 				<tree string="Add Product">
 				
 					<field name="name"/>
-									<field name="category_id"/>
+									<field name="numbered"/>
+									<field name="date"/>
+									<field name="created_by"/>
+									<field name="state"/>
 						
 				</tree>
 			</field>
@@ -23,19 +26,25 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Add Product">
+					<header>
+						<field name="state" widget="statusbar" class="oe_right"/>
+					</header>
 					<sheet>
 						<group col="4" colspan="4">
 							<group col="2" colspan="2">
-								<field name="name" required="1"/>
+								<field name="name" required="1" attrs="{'readonly':[('state','=','product_created')]}"/>
+								<field name="date" readonly="1"/>
+								<field name="numbered" attrs="{'readonly':[('state','=','product_created')]}"/>
 								
 							</group>
 							<group col="2" colspan="2">
-								<field name="category_id" domain="[('numbered','=',False)]" attrs="{'invisible':[('name','=','numbered')]}"/>
-								<field name="category_id1" domain="[('numbered','=',True)]" attrs="{'invisible':[('name','=','non-numbered')]}"/>
+								<field name="category_id" domain="[('can_altered','=',False)]" attrs="{'invisible':[('name','=','altered')],'readonly':[('state','=','product_created')]}"/>
+								<field name="category_id1" domain="[('can_altered','=',True)]" attrs="{'invisible':[('name','=','non-altered')],'readonly':[('state','=','product_created')]}"/>
+								<field name="created_by" readonly="1"/>
 							</group>	
 						</group>
 						<notebook>
-							<page string="Add Specification Value">
+							<page string="Add Specification Value" attrs="{'invisible':[('name','=','altered')],'readonly':[('state','=','product_created')]}">
 								<field name="add_product_lines">
 									<tree string="Add Product" editable="bottom">
 									<field name="category_id" invisible="1"/>
@@ -47,17 +56,29 @@
 									</tree>
 								</field>	
 							</page>
+							<page string="Category Template" attrs="{'invisible':[('name','=','non-altered')],'readonly':[('state','=','product_created')]}">
+								<field name="category_template_lines">
+									<tree string="Category Template" editable="bottom">
+										<field name="category_id" readonly="1"/>
+										<field name="seq_no" readonly="1"/>
+										<field name="product_id" domain="[('product_tmpl_id.categ_id','=',category_id)]"/>
+										<field name="short_name"/>
+										<field name="part_name" readonly="1"/>
+										<field name="mandatory" readonly="1"/>
+									</tree>	
+								</field>	
+							</page>	
 						</notebook>
-						<button string="Create Product" name="create_product" class="oe_highlight"  type="object" attrs="{'invisible':[('code1','=',True)]}"/>
+						<button string="Create Product" name="create_product" class="oe_highlight"  type="object" attrs="{'invisible':[('state','=','product_created')]}"/>
 						<group col="4" colspan="4">
 							<group col="2" colspan="2">
 								<field name="short_name" readonly="1"/>
-								<field name="code" invisible="1"/>
-								
+								<!-- <field name="code" invisible="1"/>
+								 -->
 							</group>
 							<group col="2" colspan="2">
 								<field name="long_name" readonly="1"/>
-								<field name="code1" invisible="1"/>
+								<!-- <field name="code1" invisible="1"/> -->
 								
 							</group>	
 						</group>

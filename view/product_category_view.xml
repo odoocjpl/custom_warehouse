@@ -16,10 +16,11 @@
 	        	</xpath>	
 		       	<xpath expr="//group" position="after">
             		<notebook>
-            			<page string="Category Template">
+            			<page string="Category Template" attrs="{'invisible':[('can_altered','=',False)]}">
             				
             				<field name="category_template_lines">
             					<tree string="Category Template" editable="bottom">
+            							
             						<field name="category_id"/>
             						<field name="seq_no"/>
             						<field name="part_name"/>
@@ -27,7 +28,7 @@
             					</tree>
             				</field>	
             			</page>	
-            			<page string="Specifications">
+            			<page string="Specifications" attrs="{'invisible':[('can_altered','=',True)]}">
             				<field name="specification_lines">
             					<tree string="Specification" editable="bottom">
             						<field name="seq_no"/>
@@ -35,6 +36,13 @@
             					</tree>
             				</field>
             			</page>
+            			<page string="Attribute for Grades">
+            				<field name="attribute_lines">
+            					<tree string="Attribute for Grades" editable="bottom">
+            						<field name="attribute_id"/>
+            					</tree>	
+            				</field>	
+            			</page>	
             		</notebook>
             	</xpath>	
 	 		</field>

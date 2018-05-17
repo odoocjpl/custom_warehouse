@@ -29,11 +29,11 @@
 						<group col="4" colspan="4">
 							<group col="2" colspan="2">
 								<field name="product_category_id" required="1"/>
-							<field name="name" required="1"/>
+						<field name="specification_id" domain="[('category_id1','=',product_category_id)]" required="1"/>
 							</group>
 							<group col="2" colspan="2">
+									<field name="name" required="1"/>
 								
-								<field name="specification_id" domain="[('category_id1','=',product_category_id)]" required="1"/>
 								<field name="short_name" required="1"/>
 							</group>	
 						</group>
