@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>	
+	<record model="ir.ui.view" id="product_category_form_view_inherit">
+	        <field name="name">product.category.form</field>
+	        <field name="model">product.category</field>
+	        <field name="type">form</field>
+	        <field name="inherit_id" ref="product.product_category_form_view"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//field[@name='type']" position="after">
+	        		
+            				<field name="numbered"/>
+		            		<field name="can_altered"/>
+		            		<field name="prefix"/>
+		            		
+		            		
+	        	</xpath>	
+		       	<xpath expr="//group" position="after">
+            		<notebook>
+            			<page string="Category Template">
+            				
+            				<field name="category_template_lines">
+            					<tree string="Category Template" editable="bottom">
+            						<field name="category_id"/>
+            						<field name="seq_no"/>
+            						<field name="part_name"/>
+            						<field name="mandatory"/>
+            					</tree>
+            				</field>	
+            			</page>	
+            			<page string="Specifications">
+            				<field name="specification_lines">
+            					<tree string="Specification" editable="bottom">
+            						<field name="seq_no"/>
+            						<field name="name"/>
+            					</tree>
+            				</field>
+            			</page>
+            		</notebook>
+            	</xpath>	
+	 		</field>
+	  </record>
+	  
+	  
+
+</odoo>

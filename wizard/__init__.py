@@ -1,0 +1,1 @@
+import wiz_add_product

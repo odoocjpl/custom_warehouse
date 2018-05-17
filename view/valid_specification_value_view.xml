@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>	
+	
+	  <!--============== Valid Specification Tree view===================-->
+		
+		<record id="valid_specification_tree" model="ir.ui.view">
+			<field name="name">valid.specification.tree</field>
+			<field name="model">valid.specification.value</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Specification Value">
+				
+					<field name="product_category_id"/>
+					<field name="specification_id"/>
+					<field name="name"/>
+					<field name="short_name"/>
+						
+				</tree>
+			</field>
+		</record>
+	<!--==============Valid Specification Form view===================-->
+		<record id="valid_specification_form" model="ir.ui.view">
+			<field name="name">valid.specification.form</field>
+			<field name="model">valid.specification.value</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Specification Value">
+					<sheet>
+						<group col="4" colspan="4">
+							<group col="2" colspan="2">
+								<field name="product_category_id" required="1"/>
+							<field name="name" required="1"/>
+							</group>
+							<group col="2" colspan="2">
+								
+								<field name="specification_id" domain="[('category_id1','=',product_category_id)]" required="1"/>
+								<field name="short_name" required="1"/>
+							</group>	
+						</group>
+						
+					</sheet>
+					<div class="oe_chatter">
+	                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                            <field name="message_ids" widget="mail_thread"/>
+                    </div> 	  
+				</form>
+			</field>
+		</record>
+		<!--==============Valid Specification Search==================-->
+		<record id="valid_specification_search" model="ir.ui.view">
+            <field name="name">Valid Specification</field>
+            <field name="model">valid.specification.value</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Specification Value">
+            		
+					   <field name="product_category_id"/>
+					   <field name="specification_id"/>
+					   <field name="name"/>
+					   <field name="short_name"/>
+					  	            </search>
+	        </field>
+	  </record>	 		
+    		
+<!--==============Valid Specification Action==================-->
+		<record id="valid_specification_action" model="ir.actions.act_window">
+            <field name="name">Specification Value</field>
+            <field name="res_model">valid.specification.value</field>
+            <field name="view_mode">tree,form</field>
+              <field name="search_view_id" ref="valid_specification_search"/>	
+        </record>
+        <!--==============Valid Specification Menu===================-->
+			
+			<menuitem id="valid_specification_menu" parent="stock.menu_product_in_config_stock" action="valid_specification_action" name="Specification Value" />
+
+</odoo>

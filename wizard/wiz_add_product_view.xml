@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>	
+	
+	  <!--============== Add Product Tree view===================-->
+		
+		<record id="wiz_add_product_tree" model="ir.ui.view">
+			<field name="name">wiz.add.product.tree</field>
+			<field name="model">wiz.add.product</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Add Product">
+				
+					<field name="name"/>
+									<field name="category_id"/>
+						
+				</tree>
+			</field>
+		</record>
+	<!--==============Add Product Form view===================-->
+		<record id="wiz_add_product_form" model="ir.ui.view">
+			<field name="name">wiz.add.product.form</field>
+			<field name="model">wiz.add.product</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Add Product">
+					<sheet>
+						<group col="4" colspan="4">
+							<group col="2" colspan="2">
+								<field name="name" required="1"/>
+								
+							</group>
+							<group col="2" colspan="2">
+								<field name="category_id" domain="[('numbered','=',False)]" attrs="{'invisible':[('name','=','numbered')]}"/>
+								<field name="category_id1" domain="[('numbered','=',True)]" attrs="{'invisible':[('name','=','non-numbered')]}"/>
+							</group>	
+						</group>
+						<notebook>
+							<page string="Add Specification Value">
+								<field name="add_product_lines">
+									<tree string="Add Product" editable="bottom">
+									<field name="category_id" invisible="1"/>
+									<field name="seq_no" readonly="1"/>
+									<field name="specification" readonly="1"/>
+									<field name="valid_value" domain="[('specification_id.name','=',specification),('product_category_id','=',category_id)]"/>
+									<field name="short_name" readonly="0"/>
+										
+									</tree>
+								</field>	
+							</page>
+						</notebook>
+						<button string="Create Product" name="create_product" class="oe_highlight"  type="object" attrs="{'invisible':[('code1','=',True)]}"/>
+						<group col="4" colspan="4">
+							<group col="2" colspan="2">
+								<field name="short_name" readonly="1"/>
+								<field name="code" invisible="1"/>
+								
+							</group>
+							<group col="2" colspan="2">
+								<field name="long_name" readonly="1"/>
+								<field name="code1" invisible="1"/>
+								
+							</group>	
+						</group>
+					</sheet>
+					<div class="oe_chatter">
+	                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                            <field name="message_ids" widget="mail_thread"/>
+                    </div> 	  
+				</form>
+			</field>
+		</record>
+		<!--==============Add Product Search==================-->
+		<record id="wiz_add_product_search" model="ir.ui.view">
+            <field name="name">Add Product</field>
+            <field name="model">wiz.add.product</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Add Prodcut">
+            		<field name="category_id"/>
+            		<field name="name"/>
+					  
+					  	            </search>
+	        </field>
+	  </record>	 		
+    		
+<!--==============Add Product Action==================-->
+		<record id="wiz_add_product_action" model="ir.actions.act_window">
+            <field name="name">Add Product</field>
+            <field name="res_model">wiz.add.product</field>
+            <field name="view_mode">tree,form</field>
+              <field name="search_view_id" ref="wiz_add_product_search"/>	
+        </record>
+        <!--=============Add Product Menu===================-->
+			
+			<menuitem id="wiz_add_product_menu" parent="stock.menu_stock_inventory_control" action="wiz_add_product_action" name="Add Product" />
+
+</odoo>
