@@ -229,7 +229,7 @@ class wiz_add_product(models.TransientModel):
             for each in product_obj.category_id.attribute_lines:
                 value_list = []
                 attribute_list = self.env['product.attribute.value'].search([('attribute_id','=',each.attribute_id.id)])
-                for each1 in attrinbute_list:
+                for each1 in attribute_list:
                     value_list.append(each1.id)
                 self.env['product.attribute.line'].create({'product_tmpl_id':prod_id.id,'attribute_id':each.attribute_id.id,'value_ids':[(6,0,value_list)]})
                 prod_id.create_variant_ids()
