@@ -190,7 +190,9 @@ class wiz_add_product(models.TransientModel):
                                         'short_name':each.short_name,
                                         'categ_id':each.category_id.id,
                                         'tracking':'serial',
-                                        'type':'product'
+                                        'type':'product',
+                                        'short_name_product':each.short_name_product,
+                                        'current_name':each.current_name
                                         }
                     else:
                         product_data = {
@@ -199,7 +201,9 @@ class wiz_add_product(models.TransientModel):
                                         'short_name':each.short_name,
                                         'categ_id':each.category_id.id,
                                         'tracking':'none',
-                                        'type':'product'
+                                        'type':'product',
+                                        'short_name_product':each.short_name_product,
+                                        'current_name':each.current_name
                                         }
                 elif product_obj.category_id1:
                     if product_obj.category_id1.numbered == True:
@@ -209,7 +213,9 @@ class wiz_add_product(models.TransientModel):
                                         'short_name':each.short_name,
                                         'categ_id':each.category_id1.id,
                                         'tracking':'serial',
-                                        'type':'product'
+                                        'type':'product',
+                                        'short_name_product':each.short_name_product,
+                                        'current_name':each.current_name
                                         }
                     else:
                         product_data = {
@@ -218,7 +224,9 @@ class wiz_add_product(models.TransientModel):
                                         'short_name':each.short_name,
                                         'categ_id':each.category_id1.id,
                                         'tracking':'none',
-                                        'type':'product'
+                                        'type':'product',
+                                        'short_name_product':each.short_name_product,
+                                        'current_name':each.current_name
                                         }
         prod_id = prod_obj.create(product_data)
         value_list = [ ]
@@ -276,6 +284,8 @@ class wiz_add_product(models.TransientModel):
     add_product_lines  = fields.One2many('add.product.line','wiz_add_product_id','Add Product',track_visibility="onchange")
     short_name = fields.Char('Short Name',track_visibility="onchange")
     long_name = fields.Char('Long Name',track_visibility="onchange")
+    current_name = fields.Char('Current Name',track_visibility="onchange")
+    short_name_product = fields.Char('Short Name for Component in Bom',track_visibility="onchange")
     date = fields.Date('Date',default=lambda *a: datetime.now(),track_visibility="onchange")
     created_by = fields.Many2one('res.users','Created By',readonly=True,default=lambda self: self.env.user,track_visibility="onchange")
     state = fields.Selection([('draft','Draft'),('product_created','Product Created')],'State',default="draft",track_visibility="onchange")
